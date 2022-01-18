@@ -29,7 +29,15 @@
             @if(session('hata'))
                     <div class="alert alert-danger">{{session('hata')}}</div>
            @endif
-         <form action="{{route('admin_product_update',$product->id)}}" method="post">
+            @if($errors->any()) 
+            <div class="alert alert-danger">
+              @foreach($errors->all() as $e)
+                        <li>{{$e}}</li>
+                        @endforeach
+            </div>
+                        
+            @endif
+         <form action="{{route('admin_product_update',$product->id)}}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="card-body">
                   <div class="row">
@@ -63,7 +71,7 @@
                   <div class="row">
                        <div class="col-lg-6">
                         <label for="exampleInputPassword1">İmage</label>
-                        <input type="text" name="image" class="form-control" value="{{$product->image}}">
+                        <input type="file" name="image" class="form-control" value="{{$product->image}}">
                       </div>
                        <div class="col-lg-6">
                         <label for="exampleInputPassword1">Price</label>
@@ -87,7 +95,7 @@
                     </div>
                     <div class="col-lg-6">
                       <label for="exampleInputPassword1">Detail</label>
-                      <input type="text" name="detail" class="form-control" value="{{$product->detail}}">
+                      <textarea id="summernote"name="detail" name="editordata"></textarea>
                     </div>
                   </div>
                   <div class="row">

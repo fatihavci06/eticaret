@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -45,6 +46,12 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $product= new Product;
+        $request->validate([
+        'title'=>'required',
+        'quantity'=>'required',
+         'minquantity'=>'required',
+         'tax'=>'required'   
+       ]);
         if($request->input('category_id')=="Seçiniz"){
             return redirect()->route('admin_product_add')->with('hata','Kategori seçiniz.');
         }
@@ -53,7 +60,7 @@ class ProductController extends Controller
         $product->description=$request->input('description');
         $product->category_id=$request->input('category_id');
         $product->slug=$request->input('slug');
-        $product->image=$request->input('image');
+        $product->image=Storage::putFile('images', $request->file('image'));
         $product->status=$request->input('status');
         $product->user_id=Auth::id();
         $product->price=$request->input('price');
@@ -102,7 +109,12 @@ class ProductController extends Controller
      */
     public function update($id,Request $request)
     {
-        
+        $request->validate([
+        'title'=>'required',
+        'quantity'=>'required',
+         'minquantity'=>'required',
+         'tax'=>'required'   
+       ]);
         $product= Product::findOrFail($id);
         if($request->input('category_id')=="Seçiniz"){
             return redirect()->route('admin_product_add')->with('hata','Kategori seçiniz.');
@@ -112,7 +124,7 @@ class ProductController extends Controller
         $product->description=$request->input('description');
         $product->category_id=$request->input('category_id');
         $product->slug=$request->input('slug');
-        $product->image=$request->input('image');
+        $product->image=Storage::putFile('images', $request->file('image'));
         $product->status=$request->input('status');
         $product->user_id=Auth::id();
         $product->price=$request->input('price');

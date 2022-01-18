@@ -62,6 +62,14 @@
 <script src="{{asset('back/')}}/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
 <script src="{{asset('back/')}}/plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="{{asset('back/')}}/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+<!-- include summernote css/js -->
+
+<script src="{{asset('back/')}}/summornote/summernote.min.js"></script>
+<script>
+    $(document).ready(function() {
+    $('#summernote').summernote();
+  });
+  </script>
 <script>
   $(function () {
     $("#example1").DataTable({

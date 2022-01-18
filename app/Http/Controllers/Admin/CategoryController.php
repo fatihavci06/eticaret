@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
-
+use Validator;
 class CategoryController extends Controller
 {
     /**
@@ -40,6 +40,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {   
+        
         
         if($request->input('parent_id')=="Seçiniz"){
             return redirect()->route('admin_category_add')->with('hata','parent seçiniz.');

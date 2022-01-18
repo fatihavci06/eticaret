@@ -29,7 +29,15 @@
             @if(session('hata'))
                     <div class="alert alert-danger">{{session('hata')}}</div>
            @endif
-         <form action="{{route('admin_product_create')}}" method="post">
+           @if($errors->any()) 
+            <div class="alert alert-danger">
+              @foreach($errors->all() as $e)
+                        <li>{{$e}}</li>
+                        @endforeach
+            </div>
+                        
+            @endif
+         <form action="{{route('admin_product_create')}}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="card-body">
                   <div class="row">
@@ -46,62 +54,63 @@
                       </div>
                       <div class="col-lg-6">
                         <label for="exampleInputPassword1">Title</label>
-                        <input type="text" name="title" class="form-control" >
+                        <input type="text" name="title"  value="{{old('title')}}"class="form-control" >
                       </div>
                   </div>
 
                   <div class="row">
                     <div class="col-lg-6">
                       <label for="exampleInputPassword1">Keywords</label>
-                      <input type="text" name="keywords" class="form-control" >
+                      <input type="text" name="keywords" value="{{old('keywords')}}" class="form-control" >
                     </div>
                     <div class="col-lg-6">
                       <label for="exampleInputPassword1">Description</label>
-                      <input type="text" name="description" class="form-control" >
+                      <input type="text" name="description" value="{{old('description')}}" class="form-control" >
                     </div>
                   </div>
                   <div class="row">
                        <div class="col-lg-6">
                         <label for="exampleInputPassword1">İmage</label>
-                        <input type="text" name="image" class="form-control" >
+                        <input type="file" name="image" class="form-control" >
                       </div>
                        <div class="col-lg-6">
                         <label for="exampleInputPassword1">Price</label>
-                        <input type="number" name="price" class="form-control" >
+                        <input type="number" name="price" value="{{old('price')}}" class="form-control" >
                       </div>
                  </div>
                  <div class="row">
                       <div class="col-lg-6">
                         <label for="exampleInputPassword1">Quantity</label>
-                        <input type="number" name="quantity" class="form-control" >
+                        <input type="number" name="quantity" value="{{old('quantity')}}" class="form-control" >
                       </div>
                       <div class="col-lg-6">
                         <label for="exampleInputPassword1">Minquantity</label>
-                        <input type="number" name="minquantity" class="form-control" >
+                        <input type="number" name="minquantity" value="{{old('minquantity')}}" class="form-control" >
                       </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-6">
                       <label for="exampleInputPassword1">Tax</label>
-                      <input type="number" name="tax" class="form-control" >
+                      <input type="number" name="tax" value="{{old('tax')}}" class="form-control" >
                     </div>
                     <div class="col-lg-6">
                       <label for="exampleInputPassword1">Detail</label>
-                      <input type="text" name="detail" class="form-control" >
+                      
+                      <textarea id="summernote"name="detail"  name="editordata">{{old('detail')}}</textarea>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-lg-6">
                       <label for="exampleInputPassword1">Slug</label>
-                      <input type="text" name="slug" class="form-control" >
+                      <input type="text" name="slug" value="{{old('slug')}}" class="form-control" >
                     </div>
 
                   
                     <div class="col-lg-6">
                         <label>Disabled Result</label>
                         <select class="form-control select2" name="status" style="width: 100%;">
-                          <option value="True" selected="selected">True</option>
-                          <option value="False" >False</option>
+                          <option value="True" @if(old("status")=="True") selected="selected" @endif>True</option>
+                          <option value="False" @if(old("status")=="False") selected="selected" @endif >False</option>
                         </select>
                    </div>
                   </div>

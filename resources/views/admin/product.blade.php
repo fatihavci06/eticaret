@@ -30,7 +30,8 @@
                     <th>Title(s)</th>
                     <th>Quantity</th>
                     <th>Price</th>
-                    <th>İmage</th>
+                    <th>Image</th>
+                    <th >Image Galery</th>
                     <th>Status</th>
                     <th colspan="2">Actions</th>
                   </tr>
@@ -44,7 +45,8 @@
                     <td>{{$p->title}}</td>
                     <td>{{$p->quantity}}</td>
                     <td>{{$p->price}}</td>
-                    <td>{{$p->image}}</td>
+                    <td>@if($p->image)<img src="{{Storage::url($p->image);}}" height="100px" width="100px" /> @endif</td>
+                    <td ><a class="btn btn-success" href="{{route('admin_image_create',['product_id'=>$p->id])}}"  >Ekle</a></td>
                     <td>{{$p->status}}</td>
                     <td><a href="{{route('admin_product_delete',$p->id)}}" onclick="return confirm('Eminmisiniz')" class="btn btn-danger">Sil</a></td>
                     <td><a href="{{route('admin_product_show',$p->id)}}"  class="btn btn-primary">Düzenle</a></td>
@@ -53,12 +55,13 @@
                   </tbody>
                   <tfoot>
                   <tr>
-                    <th>ID</th>
+                     <th>ID</th>
                     <th>Category</th>
                     <th>Title(s)</th>
                     <th>Quantity</th>
                     <th>Price</th>
-                    <th>İmage</th>
+                    <th>Image</th>
+                    <th >Image Galery</th>
                     <th>Status</th>
                     <th colspan="2">Actions</th>
                   </tr>

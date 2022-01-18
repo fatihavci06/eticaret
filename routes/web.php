@@ -43,4 +43,13 @@ Route::middleware('auth')->prefix('admin')->group(function () {
    Route::get('delete/{id}','App\Http\Controllers\Admin\ProductController@destroy')->name('admin_product_delete');
    Route::post('create','App\Http\Controllers\Admin\ProductController@store')->name('admin_product_create');
 });
+
+   Route::prefix('image')->group(function () {
+   Route::get('create/{product_id}','App\Http\Controllers\Admin\ImageController@create')->name('admin_image_create');
+   Route::post('store/{product_id}','App\Http\Controllers\Admin\ImageController@store')->name('admin_image_store');
+   Route::get('delete/{id}/{product_id}','App\Http\Controllers\Admin\ImageController@destroy')->name('admin_image_delete');
+   Route::get('show/{id}','App\Http\Controllers\Admin\ImageController@show')->name('admin_image_show');
+   
+   
+});
 });
