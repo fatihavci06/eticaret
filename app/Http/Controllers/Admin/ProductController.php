@@ -18,7 +18,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $data=Product::all();
+        $data=Product::with('category')->get();
+        
         return view('admin.product',['products'=>$data]);
     }
 
@@ -60,7 +61,10 @@ class ProductController extends Controller
         $product->description=$request->input('description');
         $product->category_id=$request->input('category_id');
         $product->slug=$request->input('slug');
-        $product->image=Storage::putFile('images', $request->file('image'));
+        if(!empty($request->file('image'))){
+            $product->image=Storage::putFile('images', $request->file('image'));
+        }
+        
         $product->status=$request->input('status');
         $product->user_id=Auth::id();
         $product->price=$request->input('price');
@@ -113,18 +117,20 @@ class ProductController extends Controller
         'title'=>'required',
         'quantity'=>'required',
          'minquantity'=>'required',
-         'tax'=>'required'   
+         'tax'=>'required',
+         'category_id'=>'required'  
        ]);
         $product= Product::findOrFail($id);
-        if($request->input('category_id')=="Seçiniz"){
-            return redirect()->route('admin_product_add')->with('hata','Kategori seçiniz.');
-        }
+        
         $product->title=$request->input('title');
         $product->keywords=$request->input('keywords');
         $product->description=$request->input('description');
         $product->category_id=$request->input('category_id');
         $product->slug=$request->input('slug');
-        $product->image=Storage::putFile('images', $request->file('image'));
+        if(!empty($request->file('image'))){
+            $product->image=Storage::putFile('images', $request->file('image'));
+            
+        }
         $product->status=$request->input('status');
         $product->user_id=Auth::id();
         $product->price=$request->input('price');

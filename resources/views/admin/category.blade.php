@@ -38,7 +38,7 @@
                   <tr>
 
                     <td>{{$c->id}}</td>
-                    <td>{{$c->parent_id}} </td>
+                    <td>{{ \App\Http\Controllers\Admin\CategoryController::getParentsTree($c->parent_id,$c->title) }} </td>
                     <td>{{$c->title}}</td>
                     <td>{{$c->status}}</td>
                     <td><a href="{{route('admin_category_delete',$c->id)}}" onclick="return confirm('Eminmisiniz')" class="btn btn-danger">Sil</a></td>

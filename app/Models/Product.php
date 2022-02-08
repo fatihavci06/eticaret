@@ -11,4 +11,8 @@ class Product extends Model
     public function images(){
       return  $this->hasMany(Image::class, 'product_id', 'id');  //post tablosundaki user benim(user tablosu) idime eşit demek
     }
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }

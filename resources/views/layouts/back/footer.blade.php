@@ -67,7 +67,25 @@
 <script src="{{asset('back/')}}/summornote/summernote.min.js"></script>
 <script>
     $(document).ready(function() {
-    $('#summernote').summernote();
+    $('#summernote').summernote({
+      height: 100
+    });
+     
+  });
+    $(document).ready(function() {
+    $('#summernote2').summernote({
+      height: 100
+    });
+  });
+    $(document).ready(function() {
+    $('#summernote3').summernote({
+      height: 100
+    });
+  });
+    $(document).ready(function() {
+    $('#summernote4').summernote({
+      height: 100
+    });
   });
   </script>
 <script>
@@ -85,6 +103,10 @@
       "autoWidth": false,
       "responsive": true,
     });
+     $("#example3").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
   });
 </script>
 </body>

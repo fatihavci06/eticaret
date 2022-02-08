@@ -2,13 +2,19 @@
 <html lang="zxx">
 <head>
     <!-- Meta Tag -->
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name='copyright' content=''>
+    <meta name='description' content="@yield('description')">
+    <meta name='keywords' content="@yield('keywords')">
+    <meta name='author' content="@yield('author')">
+     <meta name="csrf-token" content="{{ csrf_token() }}" />
+
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Title Tag  -->
-    <title>@yield('title')</title>
+    <title>@yield('title') </title>
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="{{asset('front/')}}/images/favicon.png">
     <!-- Web Font -->
@@ -41,10 +47,12 @@
     <link rel="stylesheet" href="{{asset('front/')}}/css/reset.css">
     <link rel="stylesheet" href="{{asset('front/')}}/style.css">
     <link rel="stylesheet" href="{{asset('front/')}}/css/responsive.css">
+     @livewireStyles
 
     
     
 </head>
+
 <body class="js">
     
     <!-- Preloader -->
@@ -69,8 +77,8 @@
                         <!-- Top Left -->
                         <div class="top-left">
                             <ul class="list-main">
-                                <li><i class="ti-headphone-alt"></i> +060 (800) 801-582</li>
-                                <li><i class="ti-email"></i> support@shophub.com</li>
+                                <li><i class="ti-headphone-alt"></i> {{$setting->phone}}</li>
+                                <li><i class="ti-email"></i> {{$setting->email}}</li>
                             </ul>
                         </div>
                         <!--/ End Top Left -->
@@ -79,10 +87,17 @@
                         <!-- Top Right -->
                         <div class="right-content">
                             <ul class="list-main">
-                                <li><i class="ti-location-pin"></i> Store location</li>
+                                <li><i class="ti-location-pin"></i> {{$setting->address}}</li>
                                 <li><i class="ti-alarm-clock"></i> <a href="#">Daily deal</a></li>
-                                <li><i class="ti-user"></i> <a href="#">My account</a></li>
-                                <li><i class="ti-power-off"></i><a href="login.html#">Login</a></li>
+                                @auth<li><i class="ti-user"></i> <a href="{{route('myuser')}}">{{ Auth::user()->name }}</a></li>
+                                    <li>
+                                        <form action="{{route('logout')}}" method="post">@csrf <button  type="submit"> Çıkış</button> </form>
+
+                                        
+                                @endauth
+                                @guest<li><i class="ti-power-off"></i><a href="{{route('login')}}">Login</a></li>
+                                        <li><i class="ti-power-off"></i><a href="{{route('register')}}">Register</a></li>
+                                @endguest
                             </ul>
                         </div>
                         <!-- End Top Right -->
@@ -97,7 +112,7 @@
                     <div class="col-lg-2 col-md-2 col-12">
                         <!-- Logo -->
                         <div class="logo">
-                            <a href="index.html"><img src="{{asset('front/')}}/images/logo.png" alt="logo"></a>
+                            <a href="{{route('home')}}"><img src="{{asset('front/')}}/images/logo.png" alt="logo"></a>
                         </div>
                         <!--/ End Logo -->
                         <!-- Search Form -->
@@ -105,10 +120,13 @@
                             <div class="top-search"><a href="#0"><i class="ti-search"></i></a></div>
                             <!-- Search Form -->
                             <div class="search-top">
-                                <form class="search-form">
+                                <form action="{{route('getproduct')}}" method="post" class="search-form">
+                                    @csrf
+                                    @livewire('search')
                                     <input type="text" placeholder="Search here..." name="search">
                                     <button value="search" type="submit"><i class="ti-search"></i></button>
                                 </form>
+                                @livewireScripts
                             </div>
                             <!--/ End Search Form -->
                         </div>
@@ -116,21 +134,14 @@
                         <div class="mobile-nav"></div>
                     </div>
                     <div class="col-lg-8 col-md-7 col-12">
-                        <div class="search-bar-top">
-                            <div class="search-bar">
-                                <select>
-                                    <option selected="selected">All Category</option>
-                                    <option>watch</option>
-                                    <option>mobile</option>
-                                    <option>kid’s item</option>
-                                </select>
-                                <form>
-                                    <input name="search" placeholder="Search Products Here....." type="search">
-                                    <button class="btnn"><i class="ti-search"></i></button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
+                        
+                             @livewire('search')
+                             @livewireScripts
+                                            </div>
+
+                    @if(session('success'))
+                    <div class="alert alert-success">{{session('success')}}</div>
+                     @endif
                     <div class="col-lg-2 col-md-3 col-12">
                         <div class="right-bar">
                             <!-- Search Form -->
@@ -141,35 +152,9 @@
                                 <a href="#" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
                             </div>
                             <div class="sinlge-bar shopping">
-                                <a href="#" class="single-icon"><i class="ti-bag"></i> <span class="total-count">2</span></a>
+                                <a href="{{route('user_shopcart')}}" class="single-icon"><i class="ti-bag"></i> <span class="total-count">{{ \App\Http\Controllers\ShopcartController::shopcartcount() }}</span></a>
                                 <!-- Shopping Item -->
-                                <div class="shopping-item">
-                                    <div class="dropdown-cart-header">
-                                        <span>2 Items</span>
-                                        <a href="#">View Cart</a>
-                                    </div>
-                                    <ul class="shopping-list">
-                                        <li>
-                                            <a href="#" class="remove" title="Remove this item"><i class="fa fa-remove"></i></a>
-                                            <a class="cart-img" href="#"><img src="https://via.placeholder.com/70x70" alt="#"></a>
-                                            <h4><a href="#">Woman Ring</a></h4>
-                                            <p class="quantity">1x - <span class="amount">$99.00</span></p>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="remove" title="Remove this item"><i class="fa fa-remove"></i></a>
-                                            <a class="cart-img" href="#"><img src="https://via.placeholder.com/70x70" alt="#"></a>
-                                            <h4><a href="#">Woman Necklace</a></h4>
-                                            <p class="quantity">1x - <span class="amount">$35.00</span></p>
-                                        </li>
-                                    </ul>
-                                    <div class="bottom">
-                                        <div class="total">
-                                            <span>Total</span>
-                                            <span class="total-amount">$134.00</span>
-                                        </div>
-                                        <a href="checkout.html" class="btn animate">Checkout</a>
-                                    </div>
-                                </div>
+                                
                                 <!--/ End Shopping Item -->
                             </div>
                         </div>

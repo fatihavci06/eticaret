@@ -2,6 +2,15 @@
  @section('title')
             Anasayfa
 @endsection
+ @section('description')
+            Anasayfa
+@endsection
+ @section('keywords')
+            Anasayfa
+@endsection
+ @section('author')
+            Anasayfa
+@endsection
 @section('content')
      <div class="content-wrapper">
     <!-- Content Header (Page header) -->

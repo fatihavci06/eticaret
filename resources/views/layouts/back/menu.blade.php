@@ -2,7 +2,16 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          
+          <li class="nav-item">
+            <a href="{{route('admin_settings_edit')}}" class="nav-link">
+              <i class="nav-icon fas fa-edit"></i>
+              <p>
+                Ayarlar
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            
+          </li>
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-edit"></i>
@@ -26,6 +35,41 @@
               </li>
               
             </ul>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-edit"></i>
+              <p>
+                SSS
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('admin_faq_add')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Soru Ekle</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('admin_faq')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Soru Liste</p>
+                </a>
+              </li>
+              
+            </ul>
+          </li>
+
+          <li class="nav-item">
+            <a href="{{route('admin_message')}}" class="nav-link">
+              <i class="nav-icon fas fa-edit"></i>
+              <p>
+                Mesajlar
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            
           </li>
           
           <li class="nav-item">

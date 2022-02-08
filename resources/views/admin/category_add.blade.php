@@ -38,7 +38,7 @@
                     <option  selected="selected">Seçiniz</option>
                     <option value="0" >Ana kategori</option>
                     @foreach($categories as $c)
-                      <option value="{{$c->id}}">{{$c->title}}</option>
+                      <option value="{{$c->id}}">{{ \App\Http\Controllers\Admin\CategoryController::getParentsTree($c->parent_id,$c->title) }}</option>
                     @endforeach
                     
                   </select>

@@ -4,20 +4,20 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Category;
-class HomeController extends Controller
+use App\Models\Message;
+class MessageController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public static function categoryList(){
-        return Category::with('child')->where('parent_id',0)->get();
-    }
     public function index()
     {
-        return view('admin.index');
+        //
+
+        $data=Message::all();
+        return view('admin.messages',['messages'=>$data]);
     }
 
     /**
@@ -60,7 +60,10 @@ class HomeController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data=Message::findOrFail($id);
+        $data->status='Read';
+        $data->save();
+        return view('admin.message_edit',['message'=>$data]);
     }
 
     /**
@@ -72,7 +75,10 @@ class HomeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $message=Message::findOrFail($id);
+        $message->note=$request->input('note');
+        $message->save();
+        return redirect()->route('admin_message')->with('success','Message succesfly edit');
     }
 
     /**
@@ -83,6 +89,8 @@ class HomeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $message=Message::findOrFail($id);
+        $message->delete();
+        return redirect()->route('admin_message')->with('success',' Message succesfly deleted');
     }
 }

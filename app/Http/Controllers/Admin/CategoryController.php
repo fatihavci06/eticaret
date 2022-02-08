@@ -13,12 +13,26 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    
+    public static function getParentsTree($parentid,$title){
+
+        if($parentid==0){
+            return $title;
+        }
+        
+        $parent=Category::where('id',$parentid)->first();
+        
+        
+        
+        $title=$parent->title.' -> '.$title;
+        return $title;
+    }
     public function index()
     {
         //
 
         $data=Category::all();
-        
+      //  return response()->json($data);
         return view('admin.category',['categories'=>$data]);
     }
 
@@ -58,7 +72,7 @@ class CategoryController extends Controller
     }
     public function add()
     {   
-        $data=Category::where('parent_id',0)->get();
+        $data=Category::all();
         return view('admin.category_add',['categories'=>$data]);
     }
 
