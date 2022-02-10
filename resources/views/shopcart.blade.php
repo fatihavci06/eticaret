@@ -86,8 +86,12 @@
                                         <li class="last">You Pay<span>{{$total+20}}</span></li>
                                     </ul>
                                     <div class="button5">
-                                        <a href="#" class="btn">Checkout</a>
-                                        <a href="#" class="btn">Continue shopping</a>
+                                        
+                                        <form action="{{route('user_order_add')}}" method="post">
+                                            @csrf
+                                            <input type="hidden" name="total" value="{{$total}}">
+                                            <button type="submit" class="btn">Continue shopping</button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>

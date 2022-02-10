@@ -93,7 +93,21 @@ Route::middleware('auth')->prefix('myaccount')->group(function () {
       
       Route::get('delete/{id}','App\Http\Controllers\ShopcartController@destroy')->name('user_shopcart_delete');
       Route::post('store/{id}','App\Http\Controllers\ShopcartController@store')->name('user_shopcart_store');
+   });
+         Route::prefix('order')->group(function () {
+         Route::get('/','App\Http\Controllers\OrderController@index')->name('user_orders');
+         Route::post('create','App\Http\Controllers\OrderController@create')->name('user_order_add');
+         Route::post('store','App\Http\Controllers\OrderController@store')->name('user_order_store');
+         Route::get('edit/{id}','App\Http\Controllers\OrderController@edit')->name('user_order_edit');
+         Route::post('update/{id}','App\Http\Controllers\OrderController@update')->name('user_order_update');
+         Route::get('show/{id}','App\Http\Controllers\OrderController@show')->name('user_order_show');
+         
+      Route::get('delete/{id}','App\Http\Controllers\OrderController@destroy')->name('user_order_delete');
+      
 });
+
+
+
 
    });
 Route::get('category/product_list/{sl}/{slug?}','App\Http\Controllers\indexController@product_list')->name('product_list');
