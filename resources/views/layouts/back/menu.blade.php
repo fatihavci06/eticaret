@@ -13,6 +13,16 @@
             
           </li>
           <li class="nav-item">
+            <a href="{{route('admin_users')}}" class="nav-link">
+              <i class="nav-icon fas fa-edit"></i>
+              <p>
+                Kullanıcılar
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            
+          </li>
+          <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-edit"></i>
               <p>
@@ -91,6 +101,48 @@
                 <a href="{{route('admin_category')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Kategori Liste</p>
+                </a>
+              </li>
+              
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-edit"></i>
+              <p>
+                Siparişler
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('admin_orders',['status'=>'New'])}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>New</p>
+                </a>
+              </li>
+               <li class="nav-item">
+                <a href="{{route('admin_orders',['status'=>'Accepted'])}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Accepted</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('admin_orders',['status'=>'Shipping'])}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Shipping</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('admin_orders',['status'=>'Canceled'])}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Canceled</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('admin_orders',['status'=>'Completed'])}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Completed</p>
                 </a>
               </li>
               

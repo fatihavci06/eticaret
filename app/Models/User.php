@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
-
+use App\Models\Role_user;
 class User extends Authenticatable
 {
     use HasApiTokens;
@@ -58,6 +58,18 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+    public function role_user(){
+      return  $this->hasMany(Role_user::class, 'user_id', 'id');  //post tablosundaki user benim(user tablosu) idime eşit demek
+    }
+
+    public static function boot() {
+        parent::boot();
+
+        static::deleting(function($user) { // before delete() method call this
+             $user->role_user()->delete();
+             // do the rest of the cleanup...
+        });
+    }
 
     
 }

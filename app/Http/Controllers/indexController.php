@@ -8,6 +8,8 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\Message;
 use App\Models\Faq;
+use App\Models\User;
+use Auth;
 use Validator;
 class indexController extends Controller
 {
@@ -26,6 +28,7 @@ class indexController extends Controller
     }
     public function index()
     {
+         
         $daily=Product::select('id','title','image','price','slug','quantity')->limit(4)->inRandomOrder()->get();
         $last=Product::select('id','title','image','price','slug','quantity')->limit(4)->orderByDesc('id')->get();
         $picked=Product::select('id','title','image','price','slug','quantity')->limit(4)->inRandomOrder()->get();

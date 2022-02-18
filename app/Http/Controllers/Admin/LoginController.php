@@ -28,7 +28,7 @@ class LoginController extends Controller
             $creadentials=$request->only('email','password');
             if(Auth::attempt($creadentials)){
                 $request->session()->regenerate();
-                return redirect()->route('admin.anasayfa');
+                return redirect()->route('admin.anasayfa')->with('yetki','Admin');
             }
             else{
                  return back()->withErrors('Email adresi ve şifre hatalı');

@@ -27,6 +27,9 @@
                  {{$errors->first()}}
                 </div>
             @endif
+             @if(session('error'))
+                    <div class="alert alert-danger">{{session('error')}}</div>
+                    @endif
       <form action="{{route('login_check')}}" method="post">
         @csrf
         <div class="input-group mb-3">

@@ -193,7 +193,7 @@
         </div>
         <div class="info">
           @auth
-          <a href="#" class="d-block">{{Auth::user()->name}}</a>
+          <a href="#" class="d-block">{{Auth::user()->name}} - {{session('yetki')}}</a>
           <a href="{{route('admin.logout')}}" >Çıkış</a>
           @endauth
           

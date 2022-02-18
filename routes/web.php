@@ -35,6 +35,7 @@ Route::post('admin/loginpost','App\Http\Controllers\Admin\LoginController@loginc
 Route::get('addtocart/{id}','App\Http\Controllers\indexController@addtocart')->whereNumber('id')->name('addtocart');
 Route::post('getproduct','App\Http\Controllers\indexController@getproduct')->name('getproduct');
 Route::middleware('auth')->prefix('admin')->group(function () {
+   Route::middleware('admin')->group(function () {
    Route::get('anasayfa','App\Http\Controllers\Admin\HomeController@index')->name('admin.anasayfa');
    Route::get('category','App\Http\Controllers\Admin\CategoryController@index')->name('admin_category');
    Route::get('category/add','App\Http\Controllers\Admin\CategoryController@add')->name('admin_category_add');
@@ -51,7 +52,7 @@ Route::middleware('auth')->prefix('admin')->group(function () {
    Route::get('delete/{id}','App\Http\Controllers\Admin\ProductController@destroy')->name('admin_product_delete');
    Route::post('create','App\Http\Controllers\Admin\ProductController@store')->name('admin_product_create');
 });
-
+});
    Route::prefix('messages')->group(function () {
    Route::get('/','App\Http\Controllers\Admin\MessageController@index')->name('admin_message');
    Route::get('edit/{id}','App\Http\Controllers\Admin\MessageController@edit')->name('admin_message_edit');
@@ -79,12 +80,31 @@ Route::middleware('auth')->prefix('admin')->group(function () {
    Route::get('delete/{id}','App\Http\Controllers\Admin\FaqController@destroy')->name('admin_faq_delete');
    Route::post('create','App\Http\Controllers\Admin\FaqController@store')->name('admin_faq_create');
 });
+
+   Route::prefix('order')->group(function () {
+         Route::get('/{status}','App\Http\Controllers\Admin\OrderController@index')->name('admin_orders');
+         Route::post('create','App\Http\Controllers\Admin\OrderController@create')->name('admin_order_add');
+         Route::post('store','App\Http\Controllers\Admin\OrderController@store')->name('admin_order_store');
+         Route::get('edit/{id}','App\Http\Controllers\Admin\OrderController@edit')->name('admin_order_edit');
+         Route::post('update/{id}','App\Http\Controllers\Admin\OrderController@update')->name('admin_order_update');
+         Route::get('show/{id}','App\Http\Controllers\Admin\OrderController@show')->name('admin_order_show');
+       Route::post('order_item_update/{id}','App\Http\Controllers\Admin\OrderController@item_update')->name('admin_orderitem_update');
+         
+      Route::get('delete/{id}','App\Http\Controllers\Admin\OrderController@destroy')->name('admin_order_delete');
+      
+});
    #Setting
    Route::get('settings/edit','App\Http\Controllers\Admin\SettingController@edit')->name('admin_settings_edit');
    Route::get('testsetting','App\Http\Controllers\indexController@getSetting');
    Route::post('settings/update','App\Http\Controllers\Admin\SettingController@update')->name('admin_settings_update');
+   Route::get('users','App\Http\Controllers\Admin\UserController@index')->name('admin_users');
+   Route::get('users/delete/{id}','App\Http\Controllers\Admin\UserController@destroy')->name('admin_user_delete');
+   Route::get('users/show/{id}','App\Http\Controllers\Admin\UserController@show')->name('admin_user_show');
+    Route::post('users/update/{id}','App\Http\Controllers\Admin\UserController@update')->name('admin_user_update');
 });
 Route::middleware('auth')->prefix('myaccount')->group(function () {
+
+
    Route::get('/','App\Http\Controllers\indexController@myuser')->name('myuser');
       Route::prefix('shopcart')->group(function () {
       Route::get('/','App\Http\Controllers\ShopcartController@index')->name('user_shopcart');
